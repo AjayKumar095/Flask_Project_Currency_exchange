@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result Page</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            background-image: linear-gradient(#fcb045, #fd1d1d, #833ab4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 80%;
+        }
+
+        h1 {
+            color: #00000;
+            font-family: "Times New Roman", Times, serif;
+        }
+
+        h4 {
+            margin: 10px 0;
+            color: #666;
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+            background-color: #fff;
+            margin-top: 10px;
+            font-size: 16px;
+            border: 2px solid #fd1d1d;
+            border-radius: 5px;
+            box-sizing: border-box;
+            color: #333;
+        }
+
+        @media (min-width: 768px) {
+            input {
+                width: 50%;
+            }
+        }
+        @media (min-width: 768px) {
+            .container {
+                width: 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Currency Exchange</h1>
+        
+        <h4>Converted Currency Value:</h4>
+        <input type="text" id="convertedValue" readonly>
+        <script>
+            var convertedValue = "{{ converted_value }}";
+            document.getElementById("convertedValue").value = convertedValue;
+        </script>
+    </div>
+</body>
+</html>

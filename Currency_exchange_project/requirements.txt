@@ -1,3 +1,5 @@
-hello
-hello2
-hello3
+flask
+requests
+json
+flask_cors
+gunicorn
