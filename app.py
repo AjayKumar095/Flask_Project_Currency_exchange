@@ -26,7 +26,7 @@ def exchange_currency():
        return Exception
        
     check_value=request.form.get("amount")
-    if int(check_value)>0:
+    if float(check_value)>0:
       
       response = requests.get(url, headers=headers, params=querystring)
       data = response.json()
