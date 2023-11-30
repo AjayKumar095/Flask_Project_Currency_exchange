@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Currency Exchange</title>
-    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}" />
+
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -60,19 +60,7 @@
                 width: 50%;
             }
         }
-        .click{
-            background-color: #4caf50;
-            color: #fff;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 200px;
-            height: 100px
-            margin: 5px;
-            position: relative;
-        }
-        
+     
     </style>
 </head>
 <body>
@@ -424,36 +412,5 @@
         <br>
         
     </form>
-    <button onclick="installApp()" class='click'>Install App</button>
-
-
 </body>
-<script>
-    let deferredPrompt;
-
-    window.addEventListener('beforeinstallprompt', (event) => {
-        event.preventDefault();
-        deferredPrompt = event;
-        showInstallButton();
-    });
-
-    function showInstallButton() {
-        // Display a button or other UI element to indicate that the app can be installed
-        // For example, you can toggle the visibility of the install button
-        document.querySelector('button').style.display = 'block';
-    }
-
-    function installApp() {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-                console.log('User accepted the A2HS prompt');
-            } else {
-                console.log('User dismissed the A2HS prompt');
-            }
-            deferredPrompt = null;
-        });
-    }
-</script>
-
 </html>
