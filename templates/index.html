@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Currency Exchange</title>
     <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png">
+    <script src="{{ url_for('static', filename='service-worker.js') }}"></script>
+    <link rel="manifest" href="/static/manifest.json">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -409,55 +411,47 @@
         </select>
 
         <button type="submit">Convert</button>
-        <button  type="button" id="installBtn" style="display:none;">Install App</button>
-        <br>
+       
+        <button type="button" id="installBtn" style="display:none;">Install Exchange Hub App</button>
     </form>
-    
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/service-worker.js')
-                .then(registration => {
-                    console.log('Service Worker registered with scope:', registration.scope);
-                })
-                .catch(error => {
-                    console.error('Service Worker registration failed:', error);
-                });
-        }
-
-        window.addEventListener('beforeinstallprompt', (event) => {
-            // Prevent the default event to prevent automatic prompt
-            event.preventDefault();
-
-            // Show the Install PWA button
-            document.getElementById('installBtn').style.display = 'block';
-
-            // Store the event for later use
-            window.deferredInstallPrompt = event;
-        });
-
-        // Handle Install PWA button click
-        document.getElementById('installBtn').addEventListener('click', () => {
-            // Show the PWA installation prompt
-            window.deferredInstallPrompt.prompt();
-
-            // Wait for the user to respond to the prompt
-            window.deferredInstallPrompt.userChoice
-                .then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('User accepted the PWA installation');
-                    } else {
-                        console.log('User declined the PWA installation');
-                    }
-
-                    // Clear the deferred prompt variable
-                    window.deferredInstallPrompt = null;
-                });
-        });
-    </script>
-
-    <!-- Include the service-worker.js script -->
-    <script src="{{ url_for('static', filename='service-worker.js') }}"></script>
 </body>
-
-
+<!-- Add this script inside the head or at the end of the body of your HTML file -->
+<!-- Add this script inside the head or at the end of the body of your HTML file -->
+<script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/static/service-worker.js', { scope: '/' })
+        .then(registration => {
+          console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch(error => {
+          console.error('Service Worker registration failed:', error);
+        });
+    }
+  
+    let deferredInstallPrompt = null;
+  
+    window.addEventListener('beforeinstallprompt', (event) => {
+      event.preventDefault();
+      deferredInstallPrompt = event;
+      // Show your install button here, e.g., make it visible
+      document.getElementById('installBtn').style.display = 'block';
+    });
+  
+    // Handle Install PWA button click
+    document.getElementById('installBtn').addEventListener('click', () => {
+      if (deferredInstallPrompt) {
+        deferredInstallPrompt.prompt();
+        deferredInstallPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('User accepted the PWA installation');
+          } else {
+            console.log('User declined the PWA installation');
+          }
+          deferredInstallPrompt = null;
+          // Hide the install button after the prompt
+          document.getElementById('installBtn').style.display = 'none';
+        });
+      }
+    });
+  </script>
 </html>
