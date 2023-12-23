@@ -3,7 +3,7 @@ from flask_cors import CORS,cross_origin
 import requests
 import json
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 
 @app.route('/', methods=['GET'])
 @cross_origin()
@@ -60,4 +60,4 @@ def exchange_currency():
         return render_template('index.html')
 
 if __name__ == '__main__':
-    app.run() 
+    app.run(debug=True) 
