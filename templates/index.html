@@ -5,9 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Currency Exchange</title>
-    <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png">
-    <script src="{{ url_for('static', filename='service-worker.js') }}"></script>
-    <link rel="manifest" href="/static/manifest.json">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -414,44 +411,5 @@
        
         <button type="button" id="installBtn" style="display:none;">Install Exchange Hub App</button>
     </form>
-</body>
-<!-- Add this script inside the head or at the end of the body of your HTML file -->
-<!-- Add this script inside the head or at the end of the body of your HTML file -->
-<script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/static/service-worker.js', { scope: '/' })
-        .then(registration => {
-          console.log('Service Worker registered with scope:', registration.scope);
-        })
-        .catch(error => {
-          console.error('Service Worker registration failed:', error);
-        });
-    }
-  
-    let deferredInstallPrompt = null;
-  
-    window.addEventListener('beforeinstallprompt', (event) => {
-      event.preventDefault();
-      deferredInstallPrompt = event;
-      // Show your install button here, e.g., make it visible
-      document.getElementById('installBtn').style.display = 'block';
-    });
-  
-    // Handle Install PWA button click
-    document.getElementById('installBtn').addEventListener('click', () => {
-      if (deferredInstallPrompt) {
-        deferredInstallPrompt.prompt();
-        deferredInstallPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === 'accepted') {
-            console.log('User accepted the PWA installation');
-          } else {
-            console.log('User declined the PWA installation');
-          }
-          deferredInstallPrompt = null;
-          // Hide the install button after the prompt
-          document.getElementById('installBtn').style.display = 'none';
-        });
-      }
-    });
-  </script>
+</body> 
 </html>
