@@ -14,13 +14,13 @@ def home_page():
 def exchange_currency():
   if request.method=='POST':
     try:
-      url = "https://currency-exchange.p.rapidapi.com/exchange"
+      url = "URL_FOR_API_CONNECTION"
 
       querystring = {"from":request.form.get("fromCurrency"),"to":request.form.get("toCurrency"),"q":request.form.get("amount")}
 
       headers = {
-	       "X-RapidAPI-Key": "39bbcfc6b4msh1ce57c7ebef9430p13ba39jsn615bbcd0e17a",
-	     "X-RapidAPI-Host": "currency-exchange.p.rapidapi.com"
+	       "API-Key": "Paste_your_api_key",
+	     "API-Host": "Paste_your_host_url"
        }
     except Exception:
        return Exception
